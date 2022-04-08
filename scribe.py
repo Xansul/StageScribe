@@ -77,8 +77,13 @@ class scribe():
         self.process_recording()
 
         #add text from audio stt to text box
-        result = self.result_text
-        text_box.insert("1.0", result)
+        #add newline only if text box is not empty
+        if (len(text_box.get("1.0",tkinter.END)) < 5):
+            result = self.result_text
+            text_box.insert(tkinter.END, result)
+        else:
+            result = "\n\n" + self.result_text
+            text_box.insert(tkinter.END, result)
 
 
     def setup_window(self):
@@ -87,7 +92,7 @@ class scribe():
         self.window.title("StageScribe")
 
         #setup text box
-        text = tkinter.Text(self.window, height=8)
+        text = tkinter.Text(self.window, height=12)
         text.pack()
 
         #setup buttons
